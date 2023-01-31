@@ -25,7 +25,7 @@ const loadBtn = new LoadBtn({
 
 async function onSubmitSearchForm(event) {
     event.preventDefault();
-    searchQueryEl = event.currentTarget.searchQuery.value
+    let searchQueryEl = event.currentTarget.searchQuery.value
     currentPage = 1;
 
   if (searchQueryEl === '') {
@@ -99,3 +99,10 @@ function createMarkup(array) {
     gallery.insertAdjacentHTML("beforeend", result)
     const lightbox = new SimpleLightbox(".gallery a", { captionsData: "alt", captionDelay: 250 });
 }
+
+
+
+
+
+
+
