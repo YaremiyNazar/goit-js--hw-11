@@ -65,8 +65,8 @@ async function onSubmitSearchForm(event) {
       Notify.failure('Sorry, there are no images matching your search query. Please try again.');
         endText.classList.add('text')
     }
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log(e.message);
   }
 }
 
