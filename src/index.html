@@ -5,11 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page title</title>
     <link rel="stylesheet" href="./sass/index.scss" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.css"
+      integrity="sha512-BjQ2UJBKmkJynH20LaFAU4E/kOtE7r7it8YvfwhlyGA9HqB6ZQj1Z9d8tN+y3v2RYunBtcQ8NlbNOkXFkLfobQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script type="module" src="./index.js"></script>
   </head>
   <body>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <!-- <include src="./partials/example.html"></include> -->
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button type="submit" class="submit">
+        <span>Search</span>
+      </button>
+    </form>
+    <div class="gallery"></div>
+    <p class="text end-text">
+      We're sorry, but you've reached the end of search results :(
+    </p>
+    <button type="button" class="load-more" data-action="load-more">
+      <span class="label">Load more</span>
+    </button>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/simplelightbox/2.12.1/simple-lightbox.min.js"
+      integrity="sha512-QoopN2y0b53eP+J2BNc1ff4ImedQAt2xDdhLQkUzTCyfniKkUlHbhweoYxDhCY78Z5EnMtY5rLtjtTK0Yc9Jcw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </body>
 </html>
 <!-- hello -->
