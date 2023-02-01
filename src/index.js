@@ -12,12 +12,10 @@ const { searchForm, gallery, loadMoreBtn, endText } = {
 };
 let currentPage = 1;
 let currentHits = 1;
-let searchQuery = '';
-
+let searchQueryEl = '';
 
 const loadBtn = new LoadBtn({
- 
-  
+
   selector: "[data-action='load-more']",
   hidden: true
 })
@@ -25,17 +23,17 @@ const loadBtn = new LoadBtn({
 
 async function onSubmitSearchForm(event) {
     event.preventDefault();
-    let searchQueryEl = event.currentTarget.searchQuery.value
+    searchQueryEl = event.currentTarget.searchQuery.value
     currentPage = 1;
 
-  if (searchQueryEl === '') {
+  if (searchQueryEl.trim() === '') {
     return Notify.failure('Sorry, there are no images matching your search query. Please try again.');
   }
-
+  console.log(searchQueryEl)
   const response = await fetchImages(searchQueryEl, currentPage);
   currentHits = response.hits.length;
   
-    if (response.totalHits < 39) {
+    if (response.totalHits < 40) {
         loadMoreBtn.classList.add('is-hidden');
         endText.classList.remove('text')
     } 
@@ -48,7 +46,8 @@ async function onSubmitSearchForm(event) {
     if (response.totalHits > 0) {
       Notify.success(`Hooray! We found ${response.totalHits} images.`);
       gallery.innerHTML = '';
-      createMarkup(response.hits);
+        createMarkup(response.hits);
+        endText.classList.add('is-hidden');
 
       const { height: cardHeight } = document
         .querySelector('.gallery')
@@ -62,7 +61,8 @@ async function onSubmitSearchForm(event) {
 
     if (response.totalHits === 0) {
       gallery.innerHTML = '';
-      Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+        loadMoreBtn.classList.add('is-hidden');
         endText.classList.add('text')
     }
   } catch (e) {
@@ -75,10 +75,18 @@ searchForm.addEventListener('submit', onSubmitSearchForm);
 
 
 async function onClickLoadMoreBtn() {
-  currentPage += 1;
-  const response = await fetchImages(searchQuery, currentPage);
-  createMarkup(response.hits);
-  currentHits += response.hits.length;
+    currentPage += 1;
+    const response = await fetchImages(searchQueryEl, currentPage);
+    createMarkup(response.hits);
+    currentHits += response.hits.length;
+ 
+    
+
+    if (currentHits === response.totalHits) {
+        loadMoreBtn.classList.add('is-hidden');
+        endText.classList.remove('text');
+    }
+  
 }
 loadMoreBtn.addEventListener('click', onClickLoadMoreBtn);
 
